@@ -18,6 +18,28 @@ audio), accounts with roles and automatic end-to-end encryption. In English and 
 > from source and signs their own updates with their own key (see [Build](#build) and
 > [Your own signing key](#your-own-signing-key)). That way nobody depends on someone else's key.
 
+![Eco: voice channels, chat and who is talking](docs/screenshots/main-en.png)
+
+<details>
+<summary>The first-time assistant</summary>
+
+![Eco's first-time assistant](docs/screenshots/setup-en.png)
+
+</details>
+
+## Eco compared
+
+| | **Eco** | Mumble | TeamSpeak | Discord |
+|---|:---:|:---:|:---:|:---:|
+| Open source | ✅ MIT | ✅ BSD | ❌ | ❌ |
+| Self-hosted server | ✅ | ✅ | ✅ (license with a slot limit) | ❌ |
+| End-to-end encrypted chat | ✅ always | ❌ | ❌ | ❌ |
+| End-to-end encrypted voice | ✅ always | ❌ (client ↔ server) | ❌ (client ↔ server) | ✅ (since 2024) |
+| Screen sharing | ✅ with PC audio | ❌ | ✅ (TeamSpeak 6) | ✅ |
+| Needs an account on a third-party service | ❌ | ❌ | ❌ | ✅ |
+
+*Comparison based on what we know as of November 2026; if something isn't accurate, open an issue and we'll fix it.*
+
 ## Getting started
 
 1. **Whoever hosts the server** opens `eco-server` (double click). The window shows an **invitation**, a line

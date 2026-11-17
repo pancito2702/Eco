@@ -732,14 +732,14 @@ private:
         ImGui::SameLine();
         ImGui::TextDisabled(T("(only if you reserved your name)"));
         ImGui::SetNextItemWidth(-1);
-        enter |= ImGui::InputTextWithHint("##pass", "opcional", &accountPass_,
+        enter |= ImGui::InputTextWithHint("##pass", T("optional"), &accountPass_,
                                           ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue);
         if (ImGui::TreeNode(T("More options"))) {
             ImGui::TextUnformatted(T("Server password"));
             ImGui::SameLine();
             ImGui::TextDisabled(T("(if the server uses --pass)"));
             ImGui::SetNextItemWidth(-1);
-            enter |= ImGui::InputTextWithHint("##spass", "opcional", &serverPass_,
+            enter |= ImGui::InputTextWithHint("##spass", T("optional"), &serverPass_,
                                               ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue);
             ImGui::TreePop();
         }
@@ -923,7 +923,7 @@ private:
             frameNew = false;
         }
         uploadFrame();
-        std::string who = "alguien";
+        std::string who = T("someone");
         for (auto& u : s.users)
             if (u.id == s.watching) who = u.nick;
         ImGuiViewport* vp = ImGui::GetMainViewport();
@@ -1246,9 +1246,9 @@ private:
         };
         if (u.me) chip(T("you"), kDim);
         if (u.blocked) chip(T("identity changed!"), kWarn);
-        else if (u.verified) chip("verificado", kTalk);
-        if (u.sharing) chip(watchingThis ? "viendo" : (u.screenAudio ? T("screen + audio") : "pantalla"), kMod);
-        if (u.muted) chip("silenciado", kMuted);
+        else if (u.verified) chip(T("verified"), kTalk);
+        if (u.sharing) chip(watchingThis ? T("watching") : (u.screenAudio ? T("screen + audio") : T("screen")), kMod);
+        if (u.muted) chip(T("muted"), kMuted);
         if (!u.me && std::fabs(u.volume - 1.f) > 0.01f) {
             std::string v = std::to_string(int(u.volume * 100 + 0.5f)) + "%";
             chip(v.c_str(), u.volume > 1.f ? kAdmin : kDim);
@@ -1402,7 +1402,7 @@ private:
             for (auto& ch : s.channels)
                 if (lowerAscii(ch).rfind(w, 0) == 0) {
                     c.items.push_back(ch);
-                    c.notes.push_back(ch == s.channel ? T("you are here") : "canal");
+                    c.notes.push_back(ch == s.channel ? T("you are here") : T("channel"));
                 }
         return c;
     }
@@ -2000,7 +2000,7 @@ private:
                 }
                 if (!cfg_.ptt.empty()) {
                     static const char* keys[] = {"v", "b", "t", "x", "z", "f8", "f9", "f10", "ctrl", "alt", "shift",
-                                                 "capslock", "espacio", "mouse4", "mouse5"};
+                                                 "capslock", "space", "mouse4", "mouse5"};
                     ImGui::SetNextItemWidth(px(160));
                     if (ImGui::BeginCombo(T("Key (works even if Eco is not in the foreground)"), cfg_.ptt.c_str())) {
                         for (auto* k : keys)

@@ -1355,7 +1355,7 @@ private:
 
     std::string nickOf(uint32_t id) {
         auto it = users_.find(id);
-        return it == users_.end() ? "alguien" : it->second.nick;
+        return it == users_.end() ? T("someone") : it->second.nick;
     }
 
     // Data that binds each E2E message to its sender and destination: the server can't
@@ -1450,7 +1450,7 @@ private:
         auto v = input ? audio_.inputs() : audio_.outputs();
         size_t i = size_t(std::atoi(arg.c_str()));
         if (i >= 1 && i <= v.size()) return v[i - 1].name;
-        say(T("! There is no ") + std::string(input ? T("microphone") : "salida") + T(" number ") + arg + T("; using the default"));
+        say(T("! There is no ") + std::string(input ? T("microphone") : T("output")) + T(" number ") + arg + T("; using the default"));
         return "";
     }
 
@@ -1461,8 +1461,8 @@ private:
 
     void sayDevices() {
         std::string i = audio_.inputName(), o = audio_.outputName();
-        say(T("* Microphone: ") + (i.empty() ? std::string("ninguno") : i) + (audio_.inputChoice.empty() ? T(" (auto)") : "") +
-            T("  |  Output: ") + (o.empty() ? std::string("ninguna") : o) + (audio_.outputChoice.empty() ? T(" (auto)") : ""));
+        say(T("* Microphone: ") + (i.empty() ? std::string(T("no microphone")) : i) + (audio_.inputChoice.empty() ? T(" (auto)") : "") +
+            T("  |  Output: ") + (o.empty() ? std::string(T("no output")) : o) + (audio_.outputChoice.empty() ? T(" (auto)") : ""));
     }
 
     // Reopens the audio (e.g. when plugging in headphones) and warns if something changed

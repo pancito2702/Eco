@@ -15,6 +15,28 @@ Programas pequeños, sin instalador ni DLLs: canales de voz, chat de texto con h
 > **No hay ejecutables oficiales.** Eco es para ti y tus amigos: quien monta un servidor compila Eco desde el código y firma sus propias actualizaciones con su propia clave (ver [Compilar](#compilar) y
 > [Tu propia clave de firma](#tu-propia-clave-de-firma)). Así nadie depende de la clave de otro.
 
+![Eco: canales de voz, chat y quién está hablando](docs/screenshots/main-es.png)
+
+<details>
+<summary>El asistente de primera vez</summary>
+
+![Asistente de primera vez de Eco](docs/screenshots/setup-es.png)
+
+</details>
+
+## Eco frente a otros
+
+| | **Eco** | Mumble | TeamSpeak | Discord |
+|---|:---:|:---:|:---:|:---:|
+| Código abierto | ✅ MIT | ✅ BSD | ❌ | ❌ |
+| Servidor propio | ✅ | ✅ | ✅ (licencia con límite de plazas) | ❌ |
+| Cifrado de extremo a extremo del chat | ✅ siempre | ❌ | ❌ | ❌ |
+| Cifrado de extremo a extremo de la voz | ✅ siempre | ❌ (cliente ↔ servidor) | ❌ (cliente ↔ servidor) | ✅ (desde 2024) |
+| Compartir pantalla | ✅ con el audio del PC | ❌ | ✅ (TeamSpeak 6) | ✅ |
+| Hace falta una cuenta en un servicio ajeno | ❌ | ❌ | ❌ | ✅ |
+
+*Comparación hecha con lo que sabemos en noviembre de 2026; si algo no es exacto, abre un issue y lo corregimos.*
+
 ## Empezar (lo fácil)
 
 1. **Quien tiene el servidor** abre `eco-server.exe` (doble clic). En la ventana aparece una **invitación**, una línea
