@@ -1,0 +1,60 @@
+# Builds Eco and runs the tests on every push and pull request.
+# No signing key here: the binaries built by CI have automatic updates turned off and are not published.
+name: build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build g++ libasio-dev libopus-dev portaudio19-dev libx11-dev \
+            libgl-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libglfw3-dev
+      - name: Build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+      - name: Encryption tests
+        run: build/eco-test-crypto
+      - name: Server tests (flood brakes, fuzzing, load)
+        run: |
+          mkdir -p /tmp/eco && cd /tmp/eco
+          "$GITHUB_WORKSPACE/build/eco-server" --port 19988 --db test.db --backups 0 > server.log 2>&1 &
+          sleep 2
+          "$GITHUB_WORKSPACE/build/eco-test-flood" 19988
+          "$GITHUB_WORKSPACE/build/eco-test-fuzz" 19988 20
+          "$GITHUB_WORKSPACE/build/eco-test-load" 19988 20 5
+          kill %1
+      - name: Translations
+        run: python3 tools/check_translations.py
+
+  windows:
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            git
+      - name: Build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+      - name: Encryption tests
+        run: build/eco-test-crypto.exe

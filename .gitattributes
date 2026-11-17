@@ -1,0 +1,15 @@
+# Text files are normalized to LF in the repository
+* text=auto
+
+# Shell scripts must keep LF even when checked out on Windows (otherwise they don't run on Linux)
+*.sh text eol=lf
+# PowerShell and batch files with CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.ico binary
+*.ttf binary
+*.ttc binary
